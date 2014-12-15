@@ -1,10 +1,22 @@
+#!/usr/bin/env python
+
 import sys
 import random
 import curses
+import json
+
 from datetime import datetime
 
 asdf = ['a','s', 'd', 'f']
 jkl = ['j','k', 'l', ';']
+
+progress_file = file('progress.json', 'r+')
+try:
+    progress = json.load(progress_file)
+except ValueError:
+    progress = {}
+
+progress_file.close()
 
 current_chars = jkl + asdf
 REPEATS = 3
@@ -28,11 +40,25 @@ for actual_char in chars:
         delta = datetime.now() - start_time
         total_time  += delta.total_seconds()
 
+    if actual_char not in progress:
+        progress[actual_char] = {
+            'hit': 0,
+            'miss': 0
+        }
+
     if user_char == actual_char:
+        progress[actual_char]['hit'] += 1
         win += 1
+    else:
+        progress[actual_char]['miss'] += 1
+
     sys.stdout.flush()
 curses.endwin()
 
+progress_file = file('progress.json', 'w+')
+json.dump(progress, progress_file)
+progress_file.close()
+
 print 'Total:', total_time
-print 'per', (total_time * 1.0)/len(chars)
+print 'Time:', (total_time * 1.0)/len(chars)
 print (win * 100.0)/len(chars)

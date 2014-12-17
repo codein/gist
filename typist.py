@@ -9,6 +9,8 @@ from datetime import datetime
 
 asdf = ['a','s', 'd', 'f']
 jkl = ['j','k', 'l', ';']
+g = ['g']
+h = ['h']
 
 progress_file = file('progress.json', 'r+')
 try:
@@ -18,7 +20,7 @@ except ValueError:
 
 progress_file.close()
 
-current_chars = jkl + asdf
+current_chars = jkl + asdf + g + h
 REPEATS = 3
 chars = current_chars * REPEATS
 [random.shuffle(chars) for i in xrange(REPEATS*2)]

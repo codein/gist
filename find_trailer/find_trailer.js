@@ -1,3 +1,4 @@
+javascript:(function(){
 var linkName, movieEl, movieEls, movieName, node, query, querySuffix, searchHref, searchPrefix, _i, _len;
 
 movieEls = $('table.wikitable td i');
@@ -19,3 +20,5 @@ for (_i = 0, _len = movieEls.length; _i < _len; _i++) {
   node.innerHTML = linkName;
   movieEl.appendChild(node);
 }
+})();
+

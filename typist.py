@@ -11,6 +11,12 @@ asdf = ['a','s', 'd', 'f']
 jkl = ['j','k', 'l', ';']
 g = ['g']
 h = ['h']
+run_from_vikky = ['r','f','v']
+uncle_joes_mad = ['u','j','m']
+to_get_betty = ['t','g','b']
+you_have_nothing = ['y','h','n']
+index_finger_right = ['f','r','v','t','g','b']
+index_finger_right = ['u','j','m','n','h','y']
 
 progress_file = file('progress.json', 'r+')
 try:

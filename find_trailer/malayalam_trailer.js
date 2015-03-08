@@ -11,7 +11,7 @@ javascript:(function(){
 
     for (_i = 0, _len = movieEls.length; _i < _len; _i++) {
       movieEl = movieEls[_i];
-      movieName = movieEl.innerText;
+      movieName = movieEl.textContent;
       query = "" + movieName + " " + querySuffix;
       query = query.replace(' ', '+');
       searchHref = "" + searchPrefix + query;

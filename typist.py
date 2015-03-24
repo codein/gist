@@ -15,8 +15,13 @@ run_from_vikky = ['r','f','v']
 uncle_joes_mad = ['u','j','m']
 to_get_betty = ['t','g','b']
 you_have_nothing = ['y','h','n']
-index_finger_right = ['f','r','v','t','g','b']
+index_finger_left = ['f','r','v','t','g','b']
 index_finger_right = ['u','j','m','n','h','y']
+
+lesson1 = jkl + asdf + g + h
+lesson2 = g + h + run_from_vikky + uncle_joes_mad
+lesson3 = index_finger_right + index_finger_left
+lesson4 = index_finger_right + index_finger_left + asdf + jkl
 
 progress_file = file('progress.json', 'r+')
 try:
@@ -26,7 +31,7 @@ except ValueError:
 
 progress_file.close()
 
-current_chars = jkl + asdf + g + h
+current_chars = lesson4
 REPEATS = 3
 chars = current_chars * REPEATS
 [random.shuffle(chars) for i in xrange(REPEATS*2)]

@@ -51,8 +51,29 @@ class LunrIndexer:
 
     def search(self, query):
         """Given a query return a list of results."""
-        results = self.idx.search(query)
-        for result in results:
-            result['match_data'] = result['match_data'].metadata
-        return results
+        # merge results by perma_filename
+        results = defaultdict(list)
+        lunr_results = self.idx.search(query)
+        for lunr_result in lunr_results:
+            ref = lunr_result['ref']
+            perma_filename = ref.split(':')[0]
+            chunk_id = ref.split(':')[1]
+            lunr_document = self.documents[ref]
+            lunr_result['doc_chunk'] = lunr_document['body']
+            lunr_result['match_data'] = lunr_result['match_data'].metadata
+            results[perma_filename].append(lunr_result)
+        _results = []
 
+        # calculate score and package results
+        for ref, matches in results.items():
+            score = sum([match['score'] for match in matches])
+            _results.append({
+                'ref': ref,
+                'matches': matches,
+                'permalink': f'{WIKI_HOST}/#{ref}',
+                'score': score
+            })
+
+        # sort by score
+        _results = sorted(_results, key=lambda x: x['score'], reverse=True)
+        return _results

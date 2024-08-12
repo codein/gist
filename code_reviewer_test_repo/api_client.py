@@ -13,6 +13,8 @@ class AnalyticsApiClient():
             # timeout=1.5,
             params=params
         )
+        if response.status_code != 200:
+            raise Exception(f'Analytics API error: {response.status_code} {response.text}')
         return response.json()
 
     def get_analytics_recommendation(self, url):
